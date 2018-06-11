@@ -1,6 +1,6 @@
 import os
-
 import aiohttp
+
 from aiohttp import web
 
 from gidgethub import routing, sansio
@@ -13,7 +13,7 @@ async def issue_opened_event(event, gh, *args, **kwargs):
     """ Greet author of issue, whenever it is opened """
     url = event.data["issue"]["comments_url"]
     author = event.data["issue"]["user"]["login"]
-    message = f"Hey @{author}, Thanks for testing this bot! :)"
+    message = f"Hey @{author}, Thanks for testing the bot me! :)"
     await gh.post(url, data={"body":message})
 
 async def main(request):
@@ -21,7 +21,7 @@ async def main(request):
     body = await request.read()
 
     # add authentication token and webhook secret
-    secret = os.enviorn.get("GH_SECRET")
+    secret = os.environ.get("GH_SECRET")
     oauth_token = os.environ.get("GH_AUTH")
 
     # a representation of github webhook event
