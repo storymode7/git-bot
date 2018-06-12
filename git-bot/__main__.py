@@ -8,7 +8,7 @@ from gidgethub import aiohttp as gh_aiohttp
 
 router = routing.Router()
 
-@router.register("issue_comment", action="created")
+@router.register("issues", action="created")
 async def issue_opened_event(event, gh, *args, **kwargs):
     """ Greet author of issue, whenever it is opened """
     url = event.data["issue"]["comments_url"]
