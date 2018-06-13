@@ -8,14 +8,16 @@ from gidgethub import aiohttp as gh_aiohttp
 
 router = routing.Router()
 
-@router.register("issues", action="created")
+@router.register("pull_request", action="closed")
 async def issue_opened_event(event, gh, *args, **kwargs):
     """ Greet author of issue, whenever it is opened """
-    url = event.data["issue"]["comments_url"]
-    author = event.data["issue"]["user"]["login"]
-    message = f"Hey @{author}, Thanks for testing the bot me! :)"
-    await gh.post(url, data={"body":message})
-
+    if event.data["merged"] = "true":
+        url = event.data["pull_request"]["html_url"]
+        author = event.data["pull_request"]["user"]["login"]
+        message = f"Hey @{author}, Thanks for Pull Request! :)"
+        await gh.post(url, data={"body":message})
+    else:
+        return
 
 async def main(request):
     # read the GitHub webhook payload
