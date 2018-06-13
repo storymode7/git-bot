@@ -12,7 +12,7 @@ router = routing.Router()
 async def pull_request_event(event, gh, *args, **kwargs):
     """ label the pull request when it's opened """
     url = event.data["pull_request"]["issue_url"]
-    await gh.patch(url, data={"labels":"Needs Review"})
+    await gh.patch(url, data={"labels":["Needs Review"]})
 
 async def main(request):
     # read the GitHub webhook payload
