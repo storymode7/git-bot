@@ -13,9 +13,9 @@ async def react_to_issue_comment_event(event, gh, *args, **kwargs):
     """ Give a thumbs up to my comments on an issue """
     url = event.data["comment"]["url"] + "/reactions"
     author = event.data["comment"]["user"]["login"]
-    if author is "storymode7"
-    await gh.post(url, data={"content": "+1"},
-                 accept="application/vnd.github.squirrel-girl-preview+json")
+    if author is "storymode7":
+        await gh.post(url, data={"content": "+1"},
+                      accept="application/vnd.github.squirrel-girl-preview+json")
 
 async def main(request):
     # read the GitHub webhook payload
