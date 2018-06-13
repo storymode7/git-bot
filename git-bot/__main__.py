@@ -12,7 +12,7 @@ router = routing.Router()
 async def pull_request_merged_event(event, gh, *args, **kwargs):
     """ Thank the commiter when the pull request is merged """
     if event.data["pull_request"]["merged"] is True:
-        url = event.data["pull_request"]["review_comments_url"]
+        url = event.data["issue_comment"]["comments_url"]
         author = event.data["pull_request"]["user"]["login"]
         message = f"Hey @{author}, Thanks for Pull Request! :)"
         print("Inside merged, and posting data")
