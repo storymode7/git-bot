@@ -8,14 +8,11 @@ from gidgethub import aiohttp as gh_aiohttp
 
 router = routing.Router()
 
-@router.register("issue_comment", action="created")
-async def react_to_issue_comment_event(event, gh, *args, **kwargs):
-    """ Give a thumbs up to my comments on an issue """
-    url = event.data["comment"]["url"] + '/reactions'
-    author = event.data["comment"]["user"]["login"]
-    if author == "storymode7":
-        await gh.post(url, data={"content": "+1"},
-                      accept="application/vnd.github.squirrel-girl-preview")
+@router.register("pull_request", action="opened")
+async def pull_request_event(event, gh, *args, **kwargs):
+    """ label the pull request when it's opened """
+    url = event.data["pull_request"]["issue_url"]
+    await gh.patch(url, data={"labels":"Needs Review"})
 
 async def main(request):
     # read the GitHub webhook payload
