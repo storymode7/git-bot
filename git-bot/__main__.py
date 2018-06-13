@@ -11,7 +11,7 @@ router = routing.Router()
 @router.register("pull_request", action="closed")
 async def issue_opened_event(event, gh, *args, **kwargs):
     """ Greet author of issue, whenever it is opened """
-    if event.data["merged"] = "true":
+    if event.data["merged"] == "true":
         url = event.data["pull_request"]["html_url"]
         author = event.data["pull_request"]["user"]["login"]
         message = f"Hey @{author}, Thanks for Pull Request! :)"
