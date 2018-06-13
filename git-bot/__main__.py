@@ -11,7 +11,7 @@ router = routing.Router()
 @router.register("issue_comment", action="created")
 async def react_to_issue_comment_event(event, gh, *args, **kwargs):
     """ Give a thumbs up to my comments on an issue """
-    url = event.data["comment"]["url"]
+    url = event.data["reactions"]["url"]
     author = event.data["comment"]["user"]["login"]
     if author is "storymode7":
         await gh.post(url, data={"content": "+1"},
