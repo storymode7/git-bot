@@ -8,16 +8,14 @@ from gidgethub import aiohttp as gh_aiohttp
 
 router = routing.Router()
 
-@router.register("pull_request", action="closed")
-async def pull_request_merged_event(event, gh, *args, **kwargs):
-    """ Thank the commiter when the pull request is merged """
-    if event.data["pull_request"]["merged"] is True:
-        url = event.data["pull_request"]["comments_url"]
-        author = event.data["pull_request"]["user"]["login"]
-        message = f"Hey @{author}, Thanks for Pull Request! :)"
-        await gh.post(url, data={"body": message})
-    else:
-        return
+@router.register("issue_comment", action="created")
+async def react_to_issue_comment_event(event, gh, *args, **kwargs):
+    """ Give a thumbs up to my comments on an issue """
+    url = event.data["comment"]["url"] + "/reactions"
+    author = event.data["comment"]["user"]["login"]
+    if author is "storymode7"
+    await gh.post(url, data={"content": "+1"},
+                 accept="application/vnd.github.squirrel-girl-preview+json")
 
 async def main(request):
     # read the GitHub webhook payload
