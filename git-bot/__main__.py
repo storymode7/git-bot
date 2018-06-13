@@ -15,8 +15,10 @@ async def issue_opened_event(event, gh, *args, **kwargs):
         url = event.data["pull_request"]["html_url"]
         author = event.data["pull_request"]["user"]["login"]
         message = f"Hey @{author}, Thanks for Pull Request! :)"
+        print("Inside merged, and posting data")
         await gh.post(url, data={"body":message})
     else:
+        print("Couldn't return, merge was: {event.data['pull_request']['merged']}")
         return
 
 async def main(request):
